@@ -21,7 +21,7 @@
 
 - name: Configure node-ip {{ k8s_node_public_ip }} at kubelet
   lineinfile:
-    path: '/etc/systemd/system/kubelet.service.d/10-kubeadm.conf'
+    path: '/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf'
     line: 'Environment="KUBELET_EXTRA_ARGS=--node-ip={{ k8s_node_public_ip }}"'
     regexp: 'KUBELET_EXTRA_ARGS='
     insertafter: '\[Service\]'

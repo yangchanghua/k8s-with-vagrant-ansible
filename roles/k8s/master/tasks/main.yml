@@ -1,7 +1,7 @@
 #https://docs.projectcalico.org/v3.6/getting-started/kubernetes/
 
 - name: Configure kubectl
-  command: kubeadm init --apiserver-advertise-address="{{ k8s_master_apiserver_advertise_address }}" --apiserver-cert-extra-sans="{{ k8s_master_apiserver_advertise_address }}" --node-name="{{ k8s_master_node_name }}" --pod-network-cidr="{{ k8s_master_pod_network_cidr }}"
+  command: kubeadm init --kubernetes-version=v1.19.3 --apiserver-advertise-address="{{ k8s_master_apiserver_advertise_address }}" --apiserver-cert-extra-sans="{{ k8s_master_apiserver_advertise_address }}" --node-name="{{ k8s_master_node_name }}" --pod-network-cidr="{{ k8s_master_pod_network_cidr }}"
   args: 
     creates: /etc/kubernetes/manifests/kube-apiserver.yaml
 
