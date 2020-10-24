@@ -21,9 +21,7 @@ Vagrant.configure("2") do |config|
             master.vm.network "private_network", ip: "#{IP_BASE}#{i + 10}"
             master.vm.hostname = "k8s-m-#{i}"
 
-            master.vm.provision "shell", inline: "rm -rf /vagrant/"
-
-            master.vm.synced_folder  ".", "/vagrant", disabled: false
+            master.vm.synced_folder  ".", "/vagrant", type: "rsync"
 
             master.vm.provider "virtualbox" do |v|
                 v.name = master.vm.hostname
@@ -50,8 +48,7 @@ Vagrant.configure("2") do |config|
             node.vm.box = IMAGE_NAME
             node.vm.network "private_network", ip: "#{IP_BASE}#{j + 10 + MASTERS_NUM}"
             node.vm.hostname = "k8s-n-#{j}"
-            node.vm.provision "shell", inline: "rm -rf /vagrant/"
-            node.vm.synced_folder  ".", "/vagrant", disabled: false
+            node.vm.synced_folder  ".", "/vagrant", type: "rsync"
             node.vm.provider "virtualbox" do |v|
                 v.name = node.vm.hostname
                 v.memory = NODES_MEM
