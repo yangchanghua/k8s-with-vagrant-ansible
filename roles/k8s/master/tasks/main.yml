@@ -43,6 +43,19 @@
   copy:
     src: ./packages
     dest: /home/vagrant/
+    force: no
     remote_src: no
     owner: "{{ k8s_master_admin_user }}"
     group: "{{ k8s_master_admin_group }}"
+
+- name: Extract istio
+  unarchive:
+    src: /home/vagrant/packages/istio-1.7.4-linux-amd64.tar.gz
+    dest: /home/vagrant/
+    remote_src: yes
+    owner: "{{ k8s_master_admin_user }}"
+    group: "{{ k8s_master_admin_group }}"
+
+#- name: Install istio
+#  shell:
+#    cmd: su - vagrant && /home/vagrant/istio-1.7.4/bin/istioctl install -y

@@ -26,3 +26,9 @@
     regexp: 'KUBELET_EXTRA_ARGS='
     state: present
   notify: restart kubelet
+
+- name: Configure docker-registry host
+  lineinfile:
+    path: /etc/hosts
+    line: '10.2.100.10 docker-registry.ych.com'
+    state: present
