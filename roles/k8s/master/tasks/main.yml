@@ -10,6 +10,11 @@
       path: "/home/{{ k8s_master_admin_user }}/.kube"
       state: directory
 
+- name: Create .kube dir for root user
+  file:
+    path: "/root/.kube"
+    state: directory
+
 - name: Copy kube config to {{ k8s_master_admin_user }} home .kube dir 
   copy:
     src: /etc/kubernetes/admin.conf
@@ -17,6 +22,15 @@
     remote_src: yes
     owner: "{{ k8s_master_admin_user }}"
     group: "{{ k8s_master_admin_group }}"
+    mode: 0660
+
+- name: Copy kube config to root home .kube dir
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest:  /root/.kube/config
+    remote_src: yes
+    owner: "root"
+    group: "root"
     mode: 0660
 
 #Rewrite calico replacing defaults
@@ -32,7 +46,7 @@
   
 # Step 2.6 from https://kubernetes.io/blog/2019/03/15/kubernetes-setup-using-ansible-and-vagrant/
 - name: Generate join command
-  command: kubeadm token create --print-join-command
+  shell: /vagrant/get-join-command.sh
   register: join_command
 
 - name: Copy join command for {{ k8s_cluster_name }} cluster to local file
@@ -47,14 +61,14 @@
     remote_src: no
     owner: "{{ k8s_master_admin_user }}"
     group: "{{ k8s_master_admin_group }}"
-
-- name: Extract istio
-  unarchive:
-    src: /home/vagrant/packages/istio-1.7.4-linux-amd64.tar.gz
-    dest: /home/vagrant/
-    remote_src: yes
-    owner: "{{ k8s_master_admin_user }}"
-    group: "{{ k8s_master_admin_group }}"
+#
+#- name: Extract istio
+#  unarchive:
+#    src: /home/vagrant/packages/istio-1.7.4-linux-amd64.tar.gz
+#    dest: /home/vagrant/
+#    remote_src: yes
+#    owner: "{{ k8s_master_admin_user }}"
+#    group: "{{ k8s_master_admin_group }}"
 
 #- name: Install istio
 #  shell:
