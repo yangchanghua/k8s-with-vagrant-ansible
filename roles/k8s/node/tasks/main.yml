@@ -6,5 +6,12 @@
     group: "{{ k8s_node_admin_group }}"
     mode: 0760  
 
+- name: check if /etc/kubernetes/kubelet.conf exists
+  stat:
+    path: /etc/kubernetes/kubelet.conf
+  register: kubelet_conf
+
 - name: Join the node to cluster {{ k8s_cluster_name }}
   command: sh /home/{{ k8s_node_admin_user }}/{{ k8s_cluster_name }}-join-command
+  when: not kubelet_conf.stat.exists
+
