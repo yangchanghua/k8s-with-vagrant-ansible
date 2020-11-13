@@ -25,11 +25,7 @@
     line: 'KUBELET_EXTRA_ARGS=--node-ip={{ k8s_node_public_ip }}'
     regexp: 'KUBELET_EXTRA_ARGS='
     state: present
-
-- name: Restart kubelet
-  service:
-    name: kubelet
-    state: restarted
+  notify: restart kubelet
 
 - name: Configure docker-registry host
   lineinfile:

@@ -28,4 +28,4 @@ fi
 PORT=6443
 
 
-echo "kubeadm join $IP:$PORT --token=$token --discovery-token-ca-cert-hash sh2256:$pubkey"
+echo "kubeadm join $IP:$PORT --token $token --discovery-token-ca-cert-hash sha256:$pubkey"
