@@ -32,3 +32,12 @@
     path: /etc/hosts
     line: '10.2.100.10 docker-registry.ych.com'
     state: present
+
+- name: make sure login with password is on
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    remote_src: yes
+    line: "PasswordAuthentication yes"
+    regexp: "PasswordAuthentication no"
+    state: present
+  notify: restart sshd

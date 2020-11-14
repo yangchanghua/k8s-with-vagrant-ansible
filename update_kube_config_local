@@ -1,0 +1,1 @@
+sshpass -p vagrant scp vagrant@192.168.50.11:/home/vagrant/.kube/config ~/.kube/

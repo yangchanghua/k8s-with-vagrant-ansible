@@ -4,13 +4,14 @@ MASTERS_NUM = 1
 MASTERS_CPU = 2 
 MASTERS_MEM = 4048
 
-NODES_NUM = 1
+NODES_NUM = 5
 NODES_CPU = 1
 NODES_MEM = 4048
 
 IP_BASE = "192.168.50."
 
 VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
+LOCAL_HOME=
 
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
